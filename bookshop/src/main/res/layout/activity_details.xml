@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.brave.bookshop.DetailsActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_marginBottom="58dp"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/details_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="#000"
+                android:textSize="22sp"
+                android:singleLine="true"
+                android:textStyle="bold"
+                android:text="毛泽东思想概论"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/details_quality"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:text="9成新"/>
+
+                <TextView
+                    android:id="@+id/details_classification"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    android:text="通修课"/>
+
+                <TextView
+                    android:id="@+id/details_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textColor="#ff0000"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:text="20元"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/ic_favorite"
+                    android:scaleType="centerInside"
+                    />
+
+                <TextView
+                    android:id="@+id/details_browse"
+                    android:layout_marginLeft="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="16sp"
+                    android:text="25"/>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/ic_time"
+                    android:scaleType="centerInside"
+                    android:layout_marginLeft="24dp"
+                    />
+
+                <TextView
+                    android:id="@+id/details_time"
+                    android:layout_marginLeft="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="16sp"
+                    android:text="2016-4-25"/>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                android:src="@mipmap/ic_book_2"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                />
+
+            <TextView
+                android:id="@+id/details_details"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="#504646"
+                android:textSize="16sp"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:text="书印刷质量很好\n字迹清晰\n看着很舒服\n内容详细\n有原文和译文,注解,看着很方便\n送的小书36计也挺好的."/>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:textColor="#fff"
+        android:textSize="16sp"
+        android:layout_alignParentBottom="true"
+        android:text="联系卖家"
+        android:onClick="dial"
+        android:background="@drawable/button_clicked" />
+
+
+
+
+
+</RelativeLayout>
