@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="3">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+           >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#3e90f5"
+                android:alpha="0.5"
+                />
+            <TextView
+                android:id="@+id/frame_home_1_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:gravity="center_horizontal"
+                android:textColor="#fff"
+                android:layout_marginBottom="8dp"
+                android:layout_above="@+id/frame_home_1_ox"
+                android:text="房间1"/>
+
+            <TextView
+                android:id="@+id/frame_home_1_ox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:gravity="center_horizontal"
+                android:textColor="#fff"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="8dp"
+                android:text="氧浓度：23.56%"/>
+
+            <TextView
+                android:id="@+id/frame_home_1_sw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:gravity="center_horizontal"
+                android:textColor="#fff"
+                android:layout_below="@+id/frame_home_1_ox"
+                android:text="机器状态：关"/>
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#3e90f5"
+                android:alpha="0.8"
+                />
+            <TextView
+                android:id="@+id/frame_home_2_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:gravity="center_horizontal"
+                android:textColor="#fff"
+                android:layout_marginBottom="8dp"
+                android:layout_above="@+id/frame_home_2_ox"
+                android:text="房间2"/>
+
+            <TextView
+                android:id="@+id/frame_home_2_ox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:gravity="center_horizontal"
+                android:textColor="#fff"
+                android:layout_marginBottom="8dp"
+                android:layout_centerInParent="true"
+                android:text="氧浓度：23.56%"/>
+
+            <TextView
+                android:id="@+id/frame_home_2_sw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:gravity="center_horizontal"
+                android:textColor="#fff"
+                android:layout_below="@+id/frame_home_2_ox"
+                android:text="机器状态：关"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#3e90f5"
+                android:alpha="0.8"
+                />
+            <TextView
+                android:id="@+id/frame_home_3_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:gravity="center_horizontal"
+                android:textColor="#fff"
+                android:layout_marginBottom="8dp"
+                android:layout_above="@+id/frame_home_3_ox"
+                android:text="房间3"/>
+
+            <TextView
+                android:id="@+id/frame_home_3_ox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:gravity="center_horizontal"
+                android:textColor="#fff"
+                android:layout_marginBottom="8dp"
+                android:layout_centerInParent="true"
+                android:text="氧浓度：23.56%"/>
+
+            <TextView
+                android:id="@+id/frame_home_3_sw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:gravity="center_horizontal"
+                android:textColor="#fff"
+                android:layout_below="@+id/frame_home_3_ox"
+                android:text="机器状态：关"/>
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#3e90f5"
+                android:alpha="0.5"
+                />
+            <TextView
+                android:id="@+id/frame_home_4_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:gravity="center_horizontal"
+                android:textColor="#fff"
+                android:layout_marginBottom="8dp"
+                android:layout_above="@+id/frame_home_4_ox"
+                android:text="房间4"/>
+
+            <TextView
+                android:id="@+id/frame_home_4_ox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:gravity="center_horizontal"
+                android:textColor="#fff"
+                android:layout_marginBottom="8dp"
+                android:layout_centerInParent="true"
+                android:text="氧浓度：23.56%"/>
+
+            <TextView
+                android:id="@+id/frame_home_4_sw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:gravity="center_horizontal"
+                android:textColor="#fff"
+                android:layout_below="@+id/frame_home_4_ox"
+                android:text="机器状态：关"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#3e90f5"
+                android:alpha="0.5"
+                />
+            <TextView
+                android:id="@+id/frame_home_5_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:gravity="center_horizontal"
+                android:textColor="#fff"
+                android:layout_marginBottom="8dp"
+                android:layout_above="@+id/frame_home_5_ox"
+                android:text="房间5"/>
+
+            <TextView
+                android:id="@+id/frame_home_5_ox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:gravity="center_horizontal"
+                android:textColor="#fff"
+                android:layout_marginBottom="8dp"
+                android:layout_centerInParent="true"
+                android:text="氧浓度：23.56%"/>
+
+            <TextView
+                android:id="@+id/frame_home_5_sw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:gravity="center_horizontal"
+                android:textColor="#fff"
+                android:layout_below="@+id/frame_home_5_ox"
+                android:text="机器状态：关"/>
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#3e90f5"
+                android:alpha="0.8"
+                />
+            <TextView
+                android:id="@+id/frame_home_6_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:gravity="center_horizontal"
+                android:textColor="#fff"
+                android:layout_marginBottom="8dp"
+                android:layout_above="@+id/frame_home_6_ox"
+                android:visibility="gone"
+                android:text="房间6"/>
+
+            <TextView
+                android:id="@+id/frame_home_6_ox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:gravity="center_horizontal"
+                android:textColor="#fff"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone"
+                android:layout_centerInParent="true"
+                android:text="氧浓度：23.56%"/>
+
+            <TextView
+                android:id="@+id/frame_home_6_sw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:gravity="center_horizontal"
+                android:textColor="#fff"
+                android:visibility="gone"
+                android:layout_below="@+id/frame_home_6_ox"
+                android:text="机器状态：关"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_add"
+                android:scaleType="centerInside"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

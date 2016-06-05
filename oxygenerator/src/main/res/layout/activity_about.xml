@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_about"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.brave.oxygenerator.AboutActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/activity_user_head"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@mipmap/logo_1931"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="16sp"
+
+                android:textColor="#000"
+                android:text="拉萨万润富氧科技有限公司\n\n地址：拉萨市北京西路环球大厦八楼"
+                />
+
+            <TextView
+                android:layout_marginTop="26dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#000"
+                android:text="拉萨万润富氧科技有限公司，在我区较早从事空气分离技术，攻克高原缺氧、干燥的工作环境和人居环境课题。依托中国人民解放军第四军医大学、中国军事医学研究院等高校科研技术，引入PSA变压吸附制氧设备、高原型高纯氧（氧浓度≥99.5%）膜分离制氧设备、原装进口医院呼吸系统。\n\n拉萨万润富氧科技有限公司自成立之初，就将科研能力视为公司发展的第一要务，公司聘请行业权威专家作为公司科研带头人，负责公司产品的研发。科研人员结合当前国内、国际本行业的发展现状及水平，从产品本身出发，攻克科研难题、提升产品性能、研发自主品牌，至今已取得不错成绩，某些方面在国际、国内已起到引领作用。\n\n2013年，开发出行业领先的楼宇富氧新风换气系统。\n\n2014年，注册、生产、销售自主品牌“雪域高原”牌制氧机。\n\n2014年，与澳柯玛合作研发出超静音室内壁挂式弥散出氧终端。\n\n2015年，开发出领先行业的万润富氧智能控制系统。\n\n2016年，我公司已通过ISO9001国际质量体系认证。\n\n2016年，国内首创远程智能富氧恒湿系统。\n\n我公司拥有优秀的销售团队和完备的售后体系。售后服务人员共九人，其中绝大多数拥有专业技术职称，公司设有24小时服务热线，同时具备现场应急功能，能够第一时间对自主品牌和代理品牌提供专业的调试、维护、维修，更好的满足不同海拔地区用户的售后需求，努力为用户提供可靠、高效、及时的服务\n\n我公司成立至今，与中国人民第四军医大学始终保证着紧密关系，在高原医学专家罗二平、申广浩教授等专家指导下，研发出高原分户式低温启动制氧机。本系统主要用于单位分户式居住的周转房和自购房，室内弥散式供氧兼顾鼻吸式保健用氧。每户居住者在室内每间房可独立操控制氧机，互不影响。
+技术，攻克高原缺氧、干燥的工作环境和人居环境课题。依托中国人民解放军第四军医大学、中国军事医学研究院等高校科研技术，引入PSA变压吸附制氧设备、高原型高纯氧（氧浓度≥99.5%）膜分离制氧设备、原装进口医院呼吸系统。
+拉萨万润富氧科技有限公司自成立之初，就将科研能力视为公司发展的第一要务，公司聘请行业权威专家作为公司科研带头人，负责公司产品的研发。科研人员结合当前国内、国际本行业的发展现状及水平，从产品本身出发，攻克科研难题、提升产品性能、研发自主品牌，至今已取得不错成绩，某些方面在国际、国内已起到引领作用。\n\n2013年，开发出行业领先的楼宇富氧新风换气系统。\n\n2014年，注册、生产、销售自主品牌“雪域高原”牌制氧机。
+\n\n2014年，与澳柯玛合作研发出超静音室内壁挂式弥散出氧终端。
+\n\n2015年，开发出领先行业的万润富氧智能控制系统。
+\n\n2016年，我公司已通过ISO9001国际质量体系认证。
+\n\n2016年，国内首创远程智能富氧恒湿系统。
+    \n\n我公司拥有优秀的销售团队和完备的售后体系。售后服务人员共九人，其中绝大多数拥有专业技术职称，公司设有24小时服务热线，同时具备现场应急功能，能够第一时间对自主品牌和代理品牌提供专业的调试、维护、维修，更好的满足不同海拔地区用户的售后需求，努力为用户提供可靠、高效、及时的服务
+我公司成立至今，与中国人民第四军医大学始终保证着紧密关系，在高原医学专家罗二平、申广浩教授等专家指导下，研发出高原分户式低温启动制氧机。本系统主要用于单位分户式居住的周转房和自购房，室内弥散式供氧兼顾鼻吸式保健用氧。每户居住者在室内每间房可独立操控制氧机，互不影响。"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</RelativeLayout>

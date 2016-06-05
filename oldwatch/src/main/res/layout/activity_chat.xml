@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_chat"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f1f0f0"
+    tools:context="com.brave.oldwatch.ChatActivity">
+
+    <ListView
+        android:id="@+id/activity_chat_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/activity_chat_fab_bar"
+        android:divider="#f1f0f0"
+        >
+    </ListView>
+
+
+    <RelativeLayout
+        android:id="@+id/activity_chat_recording_view"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:alpha="0.9"
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:background="@drawable/background">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_recording"
+            android:layout_centerInParent="true"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="松开发送，上滑取消"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="16dp"
+            android:textColor="#000"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/activity_chat_fab_bar"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="#fff"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+
+
+        <ImageView
+            android:id="@+id/activity_chat_fab"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/btn_recording"
+            />
+
+        <com.brave.oldwatch.view.ChatRecordingBackbround
+            android:id="@+id/activity_chat_recording_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
+
+
+
+
+
+</RelativeLayout>

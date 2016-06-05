@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    android:background="@drawable/background"
+    >
+
+
+    <ImageView
+        android:id="@+id/view_devices_list_item_head"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@mipmap/head"/>
+    
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="16dp"
+        android:layout_height="70dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/view_devices_list_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:textColor="#000"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            android:text="车恩尚"/>
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#999999"
+                android:textSize="14sp"
+                android:gravity="center_vertical"
+                android:text="设备状态："/>
+
+            <TextView
+                android:id="@+id/view_devices_list_item_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#1e8ae8"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:text="待机中"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/view_devices_list_item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textColor="#999999"
+            android:gravity="center_vertical"
+            android:textSize="14sp"
+            android:text="上次更新时间：2016-10-17 23:22"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

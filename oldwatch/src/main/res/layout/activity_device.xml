@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_device"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="2"
+    android:background="#fff"
+    tools:context="com.brave.oldwatch.DeviceActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.2"
+        android:background="@mipmap/bg_device">
+        <ImageView
+            android:id="@+id/activity_device_head"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/head"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:weightSum="3"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/activity_device_location"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/activity_device_img_location"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:src="@mipmap/ic_location"
+                android:layout_centerInParent="true"
+                android:scaleType="centerInside"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="定位"
+                android:layout_below="@+id/activity_device_img_location"
+                android:layout_centerHorizontal="true"
+                android:textSize="14sp"
+                android:textColor="#757575"/>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/activity_device_chat"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/activity_device_img_chat"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:src="@mipmap/ic_chat"
+                android:layout_centerInParent="true"
+                android:scaleType="centerInside"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="微聊"
+                android:textSize="14sp"
+                android:textColor="#757575"
+                android:layout_below="@+id/activity_device_img_chat"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/textView" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/activity_device_call"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="通话"
+                android:layout_below="@+id/activity_device_img_call"
+                android:layout_centerHorizontal="true"
+                android:textSize="14sp"
+                android:textColor="#757575"/>
+
+            <ImageView
+                android:id="@+id/activity_device_img_call"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:src="@mipmap/ic_call"
+                android:scaleType="centerInside"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:weightSum="3"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/activity_device_heart"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="心率"
+                android:layout_below="@+id/activity_device_img_heart"
+                android:layout_centerHorizontal="true"
+                android:textSize="14sp"
+                android:textColor="#757575"/>
+
+            <ImageView
+                android:id="@+id/activity_device_img_heart"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:src="@mipmap/ic_heart"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerInside"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/activity_device_line"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/activity_device_img_line"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:src="@mipmap/ic_line"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerInside"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="血压"
+                android:layout_below="@+id/activity_device_img_line"
+                android:layout_centerHorizontal="true"
+                android:textSize="14sp"
+                android:textColor="#757575"/>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/activity_device_listener"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/activity_device_img_listener"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:src="@mipmap/ic_listener"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerInside"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="监听"
+                android:layout_below="@+id/activity_device_img_listener"
+                android:layout_centerHorizontal="true"
+                android:textSize="14sp"
+                android:textColor="#757575"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
