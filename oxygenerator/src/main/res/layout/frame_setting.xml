@@ -102,12 +102,13 @@
             android:layout_weight="1"
             android:textSize="16sp"
             android:textColor="#000"
-            android:text="锁屏密码设置"
+            android:text="锁屏密码开关"
             android:layout_marginLeft="8dp"
             android:padding="8dp"
             />
 
         <ImageView
+            android:id="@+id/frame_setting_password_sw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

@@ -27,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
+
             android:textColor="#999999"
             android:text="11:00"/>
     </LinearLayout>
@@ -40,6 +41,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginBottom="4dp"
         android:text="您的机器已经连续工作3小时"
+        android:singleLine="true"
         android:textColor="#333333"/>
 
 </LinearLayout>

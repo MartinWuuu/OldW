@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_send_list"
+            android:icon="@mipmap/ic_list"
+            android:title="发布列表" />
+        <item
+            android:id="@+id/nav_collection_list"
+            android:icon="@mipmap/ic_star"
+            android:title="收藏列表" />
+        <item
+            android:id="@+id/nav_message_list"
+            android:icon="@mipmap/ic_email_grey"
+            android:visible="false"
+            android:title="消息列表" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@mipmap/ic_info"
+            android:title="关于" />
+
+        <item
+            android:id="@+id/nav_exit"
+            android:icon="@mipmap/ic_exit"
+            android:title="退出" />
+    </group>
+
+
+
+</menu>

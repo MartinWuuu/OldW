@@ -2,6 +2,7 @@ package com.brave.oxygenerator;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -14,7 +15,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.brave.oxygenerator.frame.DataFrame;
 import com.brave.oxygenerator.frame.HomeFrame;
@@ -34,6 +38,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     private GoogleApiClient client;
 
+    private View mHaederView;
+    private ImageView mUserHeadView;
+    private TextView mUserNameView,mUserTipsView;
+
+    private boolean isOpenSwitch = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,12 +60,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        mHaederView = navigationView.getHeaderView(0);
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
         setDefaultFragment();
 
+        initView();
+
+    }
+
+    private void initView() {
+        mUserHeadView = (ImageView)mHaederView.findViewById(R.id.nav_header_user_head);
+        mUserNameView = (TextView)mHaederView.findViewById(R.id.nav_header_user_name);
+        mUserTipsView = (TextView)mHaederView.findViewById(R.id.nav_header_user_time);
+        mUserNameView.setText("罗永浩");
+        mUserHeadView.setImageResource(R.mipmap.header);
+        mUserTipsView.setText("累计已使用"+0+"小时");
+        mHaederView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent();
+                i.setClass(MainActivity.this,UserActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -115,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mMenu.findItem(R.id.action_settings).setVisible(false);
             transaction.replace(R.id.main_frame_layout, new SettingFrame());
         } else if (id == R.id.nav_switch) {
-//            setAlertDialog();
+            setAlertDialog();
         } else if (id == R.id.nav_logout) {
 
         }
@@ -135,6 +168,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void setAlertDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = LayoutInflater.from(this).inflate(R.layout.view_dialog_sw,null);
+        final ImageView img = (ImageView) view.findViewById(R.id.view_dialog_sw_img);
+        final TextView tips = (TextView)view.findViewById(R.id.view_dialog_sw_tips);
+        img.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(isOpenSwitch){
+                    img.setImageResource(R.mipmap.sw_on);
+                    tips.setText("当前为开启状态");
+                }else{
+                    img.setImageResource(R.mipmap.sw_off);
+                    tips.setText("当前为关闭状态");
+                }
+                isOpenSwitch = !isOpenSwitch;
+                return false;
+            }
+        });
         builder.setView(view);
 //        builder.setCancelable(false);
 //        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
