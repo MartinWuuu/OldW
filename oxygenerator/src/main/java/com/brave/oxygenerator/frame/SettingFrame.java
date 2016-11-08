@@ -12,6 +12,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.brave.oxygenerator.AboutActivity;
@@ -19,7 +21,10 @@ import com.brave.oxygenerator.AdviceActivity;
 import com.brave.oxygenerator.ContactActivity;
 import com.brave.oxygenerator.PasswordActivity;
 import com.brave.oxygenerator.R;
+import com.brave.oxygenerator.SetLockActivity;
+import com.brave.oxygenerator.UnlockActivity;
 import com.brave.oxygenerator.UserActivity;
+import com.brave.oxygenerator.util.PreferenceUtil;
 
 /**
  * Created by Brave on 2016/10/7.
@@ -29,6 +34,9 @@ public class SettingFrame extends Fragment implements View.OnTouchListener {
 
     private View mView,mUserView,mUserPasswordView,mPasswordView,mAboutView,mProductView,mAdviceView,mContactUsView;
 
+    private ImageView mSwitchView;
+
+    private boolean isSetPass = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,6 +53,7 @@ public class SettingFrame extends Fragment implements View.OnTouchListener {
         mProductView = mView.findViewById(R.id.frame_setting_product);
         mAdviceView = mView.findViewById(R.id.frame_setting_advice);
         mContactUsView = mView.findViewById(R.id.frame_setting_contact_us);
+        mSwitchView = (ImageView) mView.findViewById(R.id.frame_setting_password_sw);
 
         mUserView.setOnTouchListener(this);
         mUserPasswordView.setOnTouchListener(this);
@@ -55,6 +64,19 @@ public class SettingFrame extends Fragment implements View.OnTouchListener {
         mContactUsView.setOnTouchListener(this);
 
 
+        initData();
+
+    }
+
+    private void initData() {
+        String passwordStr = PreferenceUtil.getGesturePassword(getActivity());
+        if (passwordStr == "") {
+            mSwitchView.setImageResource(R.mipmap.ic_sw_off);
+            isSetPass = false;
+        } else {
+            mSwitchView.setImageResource(R.mipmap.ic_sw_on);
+            isSetPass = true;
+        }
     }
 
     @Override
@@ -111,19 +133,21 @@ public class SettingFrame extends Fragment implements View.OnTouchListener {
         }
     }
 
-    private void setPassword(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("设置新的锁屏密码");
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.activity_password,null);
-        builder.setView(view);
-        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
+    }
 
-            }
-        });
-        builder.setNegativeButton("取消",null);
-        builder.create().show();;
+    private void setPassword(){
+        if (isSetPass){
+            PreferenceUtil.setGesturePassword(getActivity(), "");
+        }else{
+            Intent i = new Intent();
+            i.setClass(getActivity(), SetLockActivity.class);
+            getActivity().startActivity(i);
+        }
+        initData();
     }
 
 }

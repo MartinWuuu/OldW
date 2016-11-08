@@ -3,11 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#fff"
+    android:background="#f1f0f0"
     tools:context="com.brave.oxygenerator.UserActivity">
 
 
@@ -18,77 +14,281 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <ImageView
-                android:id="@+id/activity_user_head"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:src="@mipmap/head"
-                android:layout_gravity="center_horizontal"/>
 
-            <EditText
-                android:layout_marginTop="16dp"
-                android:id="@+id/activity_user_name"
+            <LinearLayout
+                android:id="@+id/activity_user_header_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:inputType="text"
-                android:maxLines="1"
-                android:textSize="16sp"
-                android:hint="昵称"/>
+                android:padding="8dp"
+                android:orientation="horizontal"
+                android:background="@drawable/item_background">
 
-            <EditText
-                android:id="@+id/activity_user_age"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="头像"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="16sp"
+                    android:textColor="#000"
+                    android:padding="16dp"/>
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/activity_user_header_img"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_margin="8dp"
+                    android:scaleType="centerCrop"
+                    app:civ_border_width="0.5dp"
+                    app:civ_border_color="#fff"
+                    android:src="@mipmap/header"
+                    />
+
+
+
+            </LinearLayout>
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:inputType="text"
-                android:textSize="16sp"
-                android:maxLines="1"
-                android:hint="年龄"/>
+                android:layout_height="1dp"
+                android:background="#dedbdb"/>
 
-            <EditText
-                android:id="@+id/activity_user_phone"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:inputType="phone"
-                android:textSize="16sp"
-                android:maxLines="1"
-                android:hint="手机号"/>
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="16dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                   >
 
-            <EditText
-                android:id="@+id/activity_user_part"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:inputType="text"
-                android:maxLines="1"
-                android:textSize="16sp"
-                android:hint="地区"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#dedbdb"/>
 
-            <EditText
-                android:id="@+id/activity_user_height"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:inputType="text"
-                android:maxLines="1"
-                android:textSize="16sp"
-                android:hint="海拔"/>
+                    <LinearLayout
+                        android:id="@+id/activity_user_bar_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/item_background"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="昵称"
+                            android:textSize="16sp"
+                            android:textColor="#000"
+                            android:padding="16dp"/>
+
+                        <TextView
+                            android:id="@+id/activity_user_text_name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="罗永浩"
+                            android:gravity="right"
+                            android:textSize="14sp"
+                            android:textColor="#999999"
+                            android:padding="16dp"/>
+
+                    </LinearLayout>
 
 
-            <TextView
-                android:id="@+id/activity_user_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:textColor="#fff"
-                android:textSize="16sp"
-                android:background="#3e90f5"
-                android:padding="12dp"
-                android:gravity="center"
-                android:layout_marginTop="16dp"
-                android:text="保存"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="#dedbdb"/>
+
+
+                    <LinearLayout
+                        android:id="@+id/activity_user_bar_age"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/item_background"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="年龄"
+                            android:textSize="16sp"
+                            android:textColor="#000"
+                            android:padding="16dp"/>
+
+                        <TextView
+                            android:id="@+id/activity_user_text_age"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="45"
+                            android:gravity="right"
+                            android:textSize="14sp"
+                            android:textColor="#999999"
+                            android:padding="16dp"/>
+
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="#dedbdb"/>
+
+                    <LinearLayout
+                        android:id="@+id/activity_user_bar_sex"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/item_background"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="性别"
+                            android:textSize="16sp"
+                            android:textColor="#000"
+                            android:padding="16dp"/>
+
+                        <TextView
+                            android:id="@+id/activity_user_text_sex"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="男"
+                            android:gravity="right"
+                            android:textSize="14sp"
+                            android:textColor="#999999"
+                            android:padding="16dp"/>
+
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="#dedbdb"/>
+
+                    <LinearLayout
+                        android:id="@+id/activity_user_bar_profession"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/item_background"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="职业"
+                            android:textSize="16sp"
+                            android:textColor="#000"
+                            android:padding="16dp"/>
+
+                        <TextView
+                            android:id="@+id/activity_user_text_profession"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="锤子科技CEO"
+                            android:gravity="right"
+                            android:textSize="14sp"
+                            android:textColor="#999999"
+                            android:padding="16dp"/>
+
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="#dedbdb"/>
+
+                    <LinearLayout
+                        android:id="@+id/activity_user_bar_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/item_background"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="手机号"
+                            android:textSize="16sp"
+                            android:textColor="#000"
+                            android:padding="16dp"/>
+
+                        <TextView
+                            android:id="@+id/activity_user_text_phone"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="15222656877"
+                            android:gravity="right"
+                            android:textSize="14sp"
+                            android:textColor="#999999"
+                            android:padding="16dp"/>
+
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:background="#dedbdb"/>
+
+                    <LinearLayout
+                        android:id="@+id/activity_user_bar_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/item_background"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="E-mail"
+                            android:textSize="16sp"
+                            android:textColor="#000"
+                            android:padding="16dp"/>
+
+                        <TextView
+                            android:id="@+id/activity_user_text_email"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="775347842@qq.com"
+                            android:gravity="right"
+                            android:textSize="14sp"
+                            android:textColor="#999999"
+                            android:padding="16dp"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#dedbdb"/>
+
+                </LinearLayout>
+            </ScrollView>
+
+
         </LinearLayout>
     </ScrollView>
 

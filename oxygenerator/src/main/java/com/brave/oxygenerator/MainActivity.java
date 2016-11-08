@@ -2,6 +2,9 @@ package com.brave.oxygenerator;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -14,12 +17,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.brave.oxygenerator.frame.DataFrame;
 import com.brave.oxygenerator.frame.HomeFrame;
 import com.brave.oxygenerator.frame.MessageFrame;
 import com.brave.oxygenerator.frame.SettingFrame;
+import com.brave.oxygenerator.util.PreferenceUtil;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -33,6 +41,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+
+    private View mHaederView;
+    private ImageView mUserHeadView;
+    private TextView mUserNameView,mUserTipsView;
+
+    private boolean isOpenSwitch = false;
+    private int mBackKeyPressedTimes = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +64,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        mHaederView = navigationView.getHeaderView(0);
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
         setDefaultFragment();
 
+        initView();
+
     }
+
+    private void initView() {
+        mUserHeadView = (ImageView)mHaederView.findViewById(R.id.nav_header_user_head);
+        mUserNameView = (TextView)mHaederView.findViewById(R.id.nav_header_user_name);
+        mUserTipsView = (TextView)mHaederView.findViewById(R.id.nav_header_user_time);
+        mUserNameView.setText("罗永浩");
+        mUserHeadView.setImageResource(R.mipmap.header);
+        mUserTipsView.setText("累计已使用"+0+"小时");
+        mHaederView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent();
+                i.setClass(MainActivity.this,UserActivity.class);
+                startActivity(i);
+            }
+        });
+    }
+
+
 
     @Override
     public void onBackPressed() {
@@ -63,7 +102,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            if (mBackKeyPressedTimes == 0) {
+                Toast.makeText(this, "再按一次退出程序 ", Toast.LENGTH_SHORT).show();
+                mBackKeyPressedTimes = 1;
+                new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } finally {
+                            mBackKeyPressedTimes = 0;
+                        }
+                    }
+                }.start();
+                return;
+            } else {
+                MainActivity.this.finish();
+            }
             super.onBackPressed();
+
         }
     }
 
@@ -90,6 +149,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
+
+
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -115,9 +177,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mMenu.findItem(R.id.action_settings).setVisible(false);
             transaction.replace(R.id.main_frame_layout, new SettingFrame());
         } else if (id == R.id.nav_switch) {
-//            setAlertDialog();
+            setAlertDialog();
         } else if (id == R.id.nav_logout) {
 
+            PreferenceUtil.setIsLogin(MainActivity.this,false);
+
+            Intent i = new Intent();
+            i.setClass(MainActivity.this,LoginActivity.class);
+            startActivity(i);
+            MainActivity.this.finish();
         }
         transaction.commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -135,6 +203,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void setAlertDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = LayoutInflater.from(this).inflate(R.layout.view_dialog_sw,null);
+        final ImageView img = (ImageView) view.findViewById(R.id.view_dialog_sw_img);
+        final TextView tips = (TextView)view.findViewById(R.id.view_dialog_sw_tips);
+        img.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(isOpenSwitch){
+                    img.setImageResource(R.mipmap.sw_on);
+                    tips.setText("开启");
+//                    tips.setTextColor(getResources().getColor(R.color.colorPrimary));
+                }else{
+                    img.setImageResource(R.mipmap.sw_off);
+                    tips.setText("关闭");
+//                    tips.setTextColor(getResources().getColor(R.color.colorAccent));
+                }
+                isOpenSwitch = !isOpenSwitch;
+                return false;
+            }
+        });
         builder.setView(view);
 //        builder.setCancelable(false);
 //        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {

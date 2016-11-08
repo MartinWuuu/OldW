@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.brave.oxygenerator">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logo_1931"
@@ -11,11 +13,7 @@
         <activity
             android:name=".LoginActivity"
             android:label="登录">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".RegisterActivity"
@@ -61,7 +59,27 @@
         <activity
             android:name=".ContactActivity"
             android:label="联系我们"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".UnlockActivity"
+            android:label="解锁程序"
+            />
+        <activity
+            android:name=".SetLockActivity"
+            android:label="绘制锁屏图案"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".EditUserInfoActivity"
+            android:parentActivityName=".UserActivity" />
+        <activity
+            android:name=".WelcomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

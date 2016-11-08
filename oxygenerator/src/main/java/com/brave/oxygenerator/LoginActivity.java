@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent i = new Intent();
                 i.setClass(LoginActivity.this,MainActivity.class);
                 startActivity(i);
+                LoginActivity.this.finish();
             }
         });
     }
@@ -58,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent i = new Intent();
                 i.setClass(this,RegisterActivity.class);
                 startActivity(i);
+                this.finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
