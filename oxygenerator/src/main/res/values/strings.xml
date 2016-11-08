@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">oxygenerator</string>
+    <string name="app_name">智能网关</string>
     <string name="title_activity_main">室内环境</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

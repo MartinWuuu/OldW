@@ -5,4 +5,8 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="pressed">#45bfbfbf</color>
+    <color name="normal">#ffffff</color>
+
+    <color name="btn_pressed">#453f3693</color>
+    <color name="btn_normal">#3e90f5</color>
 </resources>

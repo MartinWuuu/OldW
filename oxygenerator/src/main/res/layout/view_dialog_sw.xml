@@ -1,14 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#252d42">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-       android:layout_centerInParent="true"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/sw_on"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="240dp"
+        android:layout_centerHorizontal="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="总开关"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#fff"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="26dp"
+                />
+
+
+
+            <ImageView
+                android:id="@+id/view_dialog_sw_img"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/sw_on"
+               />
+
+
+            <TextView
+                android:id="@+id/view_dialog_sw_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#fff"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="26dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="总开关"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"
+                />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+
 
 
 </RelativeLayout>

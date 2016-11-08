@@ -10,25 +10,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:inputType="phone"
+        android:inputType="text"
         android:maxLines="1"
-        android:hint="请输入手机号码"/>
+        android:hint="请输入手机号或E-mail"/>
 
     <EditText
         android:id="@+id/register_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:layout_marginBottom="4dp"
         android:maxLines="1"
-        android:hint="设置密码"/>
+        android:hint="设置6-16位不包含特殊字符的密码"/>
 
     <EditText
         android:id="@+id/register_password_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:maxLines="1"
         android:hint="确认密码"/>
 
@@ -36,12 +36,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="14dp"
+        android:visibility="gone"
         android:orientation="horizontal">
         <EditText
             android:id="@+id/register_verification"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:inputType="text"
             android:maxLines="1"
             android:hint="请输入验证码"/>
 
@@ -52,7 +54,7 @@
             android:textColor="#fff"
             android:textSize="12sp"
             android:layout_gravity="center_vertical"
-            android:background="#3e90f5"
+            android:background="@drawable/btn_background"
             android:padding="8dp"
             android:text="点击获取验证码"
             />
@@ -66,9 +68,9 @@
         android:paddingTop="10dp"
         android:textColor="#fff"
         android:textSize="16sp"
-        android:background="#3e90f5"
+        android:background="@drawable/btn_background"
         android:padding="12dp"
         android:gravity="center"
-        android:text="登录"/>
+        android:text="注册为新用户"/>
 
 </LinearLayout>
