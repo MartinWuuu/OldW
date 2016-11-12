@@ -2,7 +2,6 @@ package com.brave.oxygenerator.frame;
 
 import android.app.Fragment;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -14,8 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.brave.oxygenerator.LoginActivity;
-import com.brave.oxygenerator.MainActivity;
 import com.brave.oxygenerator.R;
 import com.brave.oxygenerator.util.PreferenceUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -38,7 +35,6 @@ public class HomeFrame extends Fragment implements View.OnClickListener{
 
     private String[] mRoomTitleStrings,mRoomOxStrings;
 
-    private String s;
 
 
     @Override
