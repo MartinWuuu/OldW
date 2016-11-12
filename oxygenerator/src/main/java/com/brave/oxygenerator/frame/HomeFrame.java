@@ -38,6 +38,9 @@ public class HomeFrame extends Fragment implements View.OnClickListener{
 
     private String[] mRoomTitleStrings,mRoomOxStrings;
 
+    private String s;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.frame_home,container,false);
