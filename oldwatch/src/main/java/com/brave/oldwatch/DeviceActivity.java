@@ -2,35 +2,26 @@ package com.brave.oldwatch;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.brave.oldwatch.adapter.DevicesListAdapter;
 import com.brave.oldwatch.utils.AppInfo;
-import com.brave.oldwatch.view.DevicesListItem;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.BitmapCallback;
 import com.zhy.http.okhttp.callback.StringCallback;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import okhttp3.Call;
 
-public class DeviceActivity extends AppCompatActivity implements View.OnTouchListener {
+public class DeviceActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView mHeaderView;
     private View mLocationBtn,mChatBtn,mCalledBtn,mHeartBtn,mLineBtn,mListenerBtn;
@@ -88,8 +79,16 @@ public class DeviceActivity extends AppCompatActivity implements View.OnTouchLis
             heart = data.getString("heart_rate");
             blood = data.getString("blood_pressure");
             time = data.getString("updatetime");
-            latitude = data.getLong("latitude");
-            longitude = data.getLong("longitude");
+            if (data.isNull("latitude")){
+                latitude = 0;
+            }else{
+                latitude = data.getLong("latitude");
+            }
+            if(data.isNull("longitude")){
+                longitude = 0;
+            }else{
+                longitude = data.getLong("longitude");
+            }
             isGetInfo = true;
         }else{
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
@@ -107,12 +106,12 @@ public class DeviceActivity extends AppCompatActivity implements View.OnTouchLis
         mLineBtn = findViewById(R.id.activity_device_line);
         mListenerBtn = findViewById(R.id.activity_device_listener);
 
-        mLocationBtn.setOnTouchListener(this);
-        mChatBtn.setOnTouchListener(this);
-        mCalledBtn.setOnTouchListener(this);
-        mHeartBtn.setOnTouchListener(this);
-        mLineBtn.setOnTouchListener(this);
-        mListenerBtn.setOnTouchListener(this);
+        mLocationBtn.setOnClickListener(this);
+        mChatBtn.setOnClickListener(this);
+        mCalledBtn.setOnClickListener(this);
+        mHeartBtn.setOnClickListener(this);
+        mLineBtn.setOnClickListener(this);
+        mListenerBtn.setOnClickListener(this);
         OkHttpUtils
                 .get()
                 .url(info[3])
@@ -128,22 +127,7 @@ public class DeviceActivity extends AppCompatActivity implements View.OnTouchLis
                 });
     }
 
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        switch (event.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                v.setBackgroundColor(getResources().getColor(R.color.pressed));
-                break;
-            case MotionEvent.ACTION_UP:
-                v.setBackgroundColor(Color.WHITE);
-                doAction(v.getId());
-                break;
-            case MotionEvent.ACTION_CANCEL:
-                v.setBackgroundColor(Color.WHITE);
-                break;
-        }
-        return true;
-    }
+
 
     private void showAlert(int i){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -193,5 +177,10 @@ public class DeviceActivity extends AppCompatActivity implements View.OnTouchLis
                 break;
 
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        doAction(v.getId());
     }
 }
