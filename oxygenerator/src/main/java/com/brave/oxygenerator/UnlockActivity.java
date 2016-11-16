@@ -33,10 +33,18 @@ public class UnlockActivity extends AppCompatActivity {
             public boolean isPassword() {
                 if (mPasswordStr.equals(password)) {
                     Toast.makeText(UnlockActivity.this, "密码正确", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(UnlockActivity.this, LoginActivity.class);
+
+                    boolean isLogin = PreferenceUtil.isLogin(UnlockActivity.this);
+                    Intent intent;
+                    if(isLogin){
+                        intent = new Intent(UnlockActivity.this, MainActivity.class);
+                    }else{
+                        intent = new Intent(UnlockActivity.this, LoginActivity.class);
+                    }
                     startActivity(intent);
                     UnlockActivity.this.finish();
-//                    return true;
+
+
                 } else {
                     Toast.makeText(UnlockActivity.this, "密码不正确", Toast.LENGTH_SHORT).show();
                 }

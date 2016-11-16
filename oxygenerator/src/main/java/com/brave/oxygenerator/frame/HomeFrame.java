@@ -77,7 +77,9 @@ public class HomeFrame extends Fragment implements View.OnClickListener{
         mRoomAddBtn = (ImageView)mView.findViewById(R.id.frame_home_btn);
 
         mRoomAddBtn.setOnClickListener(this);
+
     }
+
 
     private void showRoom1(){
         mRoomAddBtn.setVisibility(View.VISIBLE);

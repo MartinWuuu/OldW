@@ -9,6 +9,9 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
     <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- 用于读取手机当前的状态 -->
@@ -32,8 +35,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="DRMLf8Fst8nX1hfHacmY6mfY902THMEi" />
+            android:name="com.amap.api.v2.apikey"
+            android:value="11a18929f98a6569674aa23ebe2911a0"/>
+        />
 
         <activity android:name=".MainActivity">
 
@@ -45,11 +49,6 @@
             android:name=".LocationActivity"
             android:label="位置信息"
             android:parentActivityName=".DeviceActivity" />
-
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" />
 
         <activity
             android:name=".ChatActivity"
@@ -63,6 +62,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name="com.amap.api.location.APSService" >
+        </service>
     </application>
 
 </manifest>

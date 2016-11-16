@@ -25,7 +25,6 @@ public class WelcomeActivity extends AppCompatActivity {
         CookieJarImpl cookieJar = new CookieJarImpl(new PersistentCookieStore(getApplicationContext()));
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .cookieJar(cookieJar)
-                //其他配置
                 .build();
 
         OkHttpUtils.initClient(okHttpClient);

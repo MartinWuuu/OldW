@@ -71,22 +71,22 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
                 setUserHeader();
                 break;
             case R.id.activity_user_bar_name:
-                editUserInfo("昵称","罗永浩");
+                editUserInfo("昵称","nickName",PreferenceUtil.getUserInfo(UserActivity.this,"name"));
                 break;
             case R.id.activity_user_bar_age:
-                editUserInfo("年龄","45");
+                editUserInfo("年龄","age",PreferenceUtil.getUserInfo(UserActivity.this,"age"));
                 break;
             case R.id.activity_user_bar_sex:
-                editUserInfo("性别","男");
+                editUserInfo("性别","male",PreferenceUtil.getUserInfo(UserActivity.this,"sex"));
                 break;
             case R.id.activity_user_bar_profession:
-                editUserInfo("职业","锤子科技CEO");
+                editUserInfo("职业","profession",PreferenceUtil.getUserInfo(UserActivity.this,"profession"));
                 break;
             case R.id.activity_user_bar_phone:
-                editUserInfo("手机号","15222656877");
+                editUserInfo("手机号","mphone",PreferenceUtil.getUserInfo(UserActivity.this,"mphone"));
                 break;
             case R.id.activity_user_bar_email:
-                editUserInfo("E-mail","775347842@qq.com");
+                editUserInfo("E-mail","email",PreferenceUtil.getUserInfo(UserActivity.this,"email"));
                 break;
         }
     }
@@ -174,11 +174,12 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-    private void editUserInfo(String s, String value) {
+    private void editUserInfo(String s,String params, String value) {
         Intent i = new Intent();
         i.setClass(this,EditUserInfoActivity.class);
         i.putExtra("title",s);
         i.putExtra("value",value);
+        i.putExtra("params",params);
         startActivity(i);
     }
 }

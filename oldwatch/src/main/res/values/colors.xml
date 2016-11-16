@@ -5,4 +5,7 @@
     <color name="colorAccent">#ff4081</color>
     <color name="pressed">#45bfbfbf</color>
     <color name="recording">#0adb80</color>
+
+    <color name="btn_pressed">#45bfbfbf</color>
+    <color name="btn_normal">#fff</color>
 </resources>

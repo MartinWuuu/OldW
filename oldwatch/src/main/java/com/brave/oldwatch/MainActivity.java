@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.baidu.mapapi.SDKInitializer;
 import com.brave.oldwatch.frame.HomeFragment;
 import com.brave.oldwatch.frame.MessageFragment;
 import com.brave.oldwatch.frame.MoreFragment;
@@ -24,7 +23,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SDKInitializer.initialize(getApplicationContext());
         initView();
         onSelected(1);
     }

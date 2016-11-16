@@ -27,17 +27,12 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile files('libs/baidumapapi_base_v4_1_1.jar')
-    compile files('libs/baidumapapi_cloud_v4_1_1.jar')
-    compile files('libs/baidumapapi_map_v4_1_1.jar')
-    compile files('libs/baidumapapi_radar_v4_1_1.jar')
-    compile files('libs/baidumapapi_search_v4_1_1.jar')
-    compile files('libs/baidumapapi_util_v4_1_1.jar')
-    compile files('libs/locSDK_6.13.jar')
+
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:support-v4:23.4.0'
     compile 'com.android.support:design:23.4.0'
     testCompile 'junit:junit:4.12'
 
     compile 'com.zhy:okhttputils:2.6.2'
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 }
