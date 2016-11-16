@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main,menu);
+        getMenuInflater().inflate(R.menu.main_normal,menu);
         return true;
     }
 
