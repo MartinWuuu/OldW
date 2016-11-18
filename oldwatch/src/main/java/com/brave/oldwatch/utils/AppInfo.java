@@ -13,6 +13,8 @@ public class AppInfo {
 
     public static final String HttpImgUrl = "http://59.110.12.158/Public/Uploads/";
 
+    public static final String HttpAmrUrl = "http://59.110.12.158/Public/Audio/";
+
     private static final String SPName = "oldwatch";
 
 

@@ -108,12 +108,6 @@ public class HomeFragment extends Fragment {
 
     private void initView() {
         mListView = (ListView)mView.findViewById(R.id.frame_home_list);
-//        List<LinearLayout> list = new ArrayList<>();
-//        for (int i = 0; i < 3; i++){
-//            DevicesListItem item = new DevicesListItem(getActivity());
-//            list.add(item);
-//        }
-//        mListView.setAdapter(new DevicesListAdapter(list));
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

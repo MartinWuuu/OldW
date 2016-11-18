@@ -29,7 +29,7 @@ public class DeviceActivity extends AppCompatActivity implements View.OnTouchLis
 
     private ImageView mHeaderView;
     private View mLocationBtn,mChatBtn,mCalledBtn,mHeartBtn,mLineBtn,mListenerBtn;
-    private String info[];
+    private static String info[];
 
     private double latitude,longitude;
     private double[] lats,lngs;
@@ -263,6 +263,7 @@ public class DeviceActivity extends AppCompatActivity implements View.OnTouchLis
         Intent i1 = new Intent();
         i1.setClass(DeviceActivity.this,ChatActivity.class);
         i1.putExtra("imei", info[1]);
+        i1.putExtra("name", info[0]);
         startActivity(i1);
     }
 

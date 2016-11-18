@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
@@ -25,8 +24,11 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
+    <uses-permission  android:name="android.permission.MOUNT_FORMAT_FILESYSTEMS"/>
+    <uses-permission  android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission  android:name="android.permission.RECORD_AUDIO"/>
 
     <application
         android:allowBackup="true"
@@ -36,26 +38,13 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="11a18929f98a6569674aa23ebe2911a0"/>
+            android:value="7d891329a8642e916d63bf9b42964a1e" />
         />
 
-        <activity android:name=".MainActivity">
+        <!-- 11a18929f98a6569674aa23ebe2911a0 , dell -->
+        <!-- 7d891329a8642e916d63bf9b42964a1e , pc -->
 
-        </activity>
-        <activity
-            android:name=".DeviceActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".LocationActivity"
-            android:label="位置信息"
-            android:parentActivityName=".DeviceActivity" />
-
-        <activity
-            android:name=".ChatActivity"
-            android:parentActivityName=".DeviceActivity" />
-        <activity
-            android:name=".LoginActivity"
-            >
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -63,8 +52,27 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.amap.api.location.APSService" >
-        </service>
+        <activity android:name=".MainActivity"></activity>
+
+        <activity android:name=".ChatActivity" />
+
+        <activity
+            android:name=".DeviceActivity"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".LocationActivity"
+            android:label="位置信息"
+             />
+
+        <activity
+            android:name=".NoticeActivity"
+            android:label="系统通知"
+            android:parentActivityName=".MainActivity"></activity>
+
+        <service android:name="com.amap.api.location.APSService"></service>
+        <service android:name=".service.NetService"></service>
+
     </application>
 
 </manifest>

@@ -99,6 +99,7 @@ public class LoginActivity extends AppCompatActivity{
             JSONObject data = jo.getJSONObject("data");
             AppInfo.save(this,"username",username);
             AppInfo.save(this,"password",password);
+            AppInfo.save(this,"username",data.getString("username"));
             AppInfo.save(this,"isLogin",true);
             Toast.makeText(this, "欢迎，"+username, Toast.LENGTH_LONG).show();
             toMain();

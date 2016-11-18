@@ -2,22 +2,31 @@ package com.brave.oldwatch;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.brave.oldwatch.frame.HomeFragment;
 import com.brave.oldwatch.frame.MessageFragment;
 import com.brave.oldwatch.frame.MoreFragment;
 import com.brave.oldwatch.frame.NoticeFragment;
+import com.brave.oldwatch.service.NetService;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     private ImageView mHomeBtn,mNoticeBtn,mMessageBtn,mMoreBtn;
+
+    public static final String ACTION_UPDATEUI = "action.updateUI";
+    private UpdateUIBroadcastReceiver broadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +34,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initView();
         onSelected(1);
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ACTION_UPDATEUI);
+        broadcastReceiver = new UpdateUIBroadcastReceiver();
+        registerReceiver(broadcastReceiver, filter);
+
+        Intent i = new Intent();
+        i.setClass(this, NetService.class);
+        startService(i);
     }
 
     @Override
@@ -36,6 +54,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_notice){
+            Intent i = new Intent();
+            i.setClass(this,NoticeActivity.class);
+            startActivity(i);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -77,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (i){
             case 1:
                 mHomeBtn.setImageResource(R.mipmap.ic_bottomtabbar_feed_enable);
-                setTitle("智能腕带");
+                setTitle("道易成社区矫正管理控制平台");
                 transaction.replace(R.id.activity_main_frame, new HomeFragment());
                 break;
             case 2:
@@ -106,5 +127,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mMoreBtn.setImageResource(R.mipmap.ic_bottomtabbar_more);
     }
 
+    private class UpdateUIBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+//            if(intent.getBooleanExtra("notice",false)){
+//                Toast.makeText(MainActivity.this, intent.getStringExtra("msg"), Toast.LENGTH_SHORT).show();
+//            }
+
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        System.out.println("onDestroy");
+        super.onDestroy();
+        unregisterReceiver(broadcastReceiver);
+    }
 
 }

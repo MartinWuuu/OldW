@@ -7,18 +7,21 @@
     >
 
     <ImageView
+        android:id="@+id/view_chat_item_left_logo"
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:layout_marginRight="16dp"
-        android:src="@mipmap/head"/>
+        />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:background="@drawable/bg_chat_item"
+        android:background="@drawable/bg_chat_right"
         android:orientation="vertical">
+
         <TextView
+            android:id="@+id/view_chat_item_left_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#fff"
@@ -26,27 +29,32 @@
             android:text="我现在正在吃饭，明天准备逛商场，买件外套"/>
 
         <TextView
+            android:id="@+id/view_chat_item_left_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#fff"
             android:textSize="12sp"
             android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
             android:text="接收于 2016-10-31 14:33"/>
         
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:background="#fff"/>
 
         <LinearLayout
+            android:id="@+id/view_chat_item_left_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:src="@mipmap/ic_play"/>
 
             <TextView
@@ -54,17 +62,22 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
-                android:textSize="16sp"
-                android:layout_marginLeft="16dp"
+                android:textSize="12sp"
+                android:layout_marginLeft="8dp"
                 android:layout_gravity="center_vertical"
-                android:text="10s"/>
+                android:text="语音消息"/>
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:id="@+id/view_chat_item_left_playing"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:visibility="invisible"
+                android:layout_marginRight="8dp"
                 android:layout_gravity="center_vertical"
                 android:src="@mipmap/ic_playing_left"/>
+
+
+
         </LinearLayout>
 
 
