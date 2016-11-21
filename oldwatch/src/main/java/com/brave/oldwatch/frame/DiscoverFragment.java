@@ -1,15 +1,17 @@
-package com.brave.oldwatch;
+package com.brave.oldwatch.frame;
 
+
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
@@ -17,8 +19,8 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
@@ -30,9 +32,11 @@ import com.amap.api.maps.model.CircleOptions;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
+import com.amap.api.maps.model.MyLocationStyle;
 import com.amap.api.maps.model.Polygon;
 import com.amap.api.maps.model.PolygonOptions;
 import com.amap.api.maps.model.PolylineOptions;
+import com.brave.oldwatch.R;
 import com.brave.oldwatch.utils.AppInfo;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.BitmapCallback;
@@ -48,73 +52,114 @@ import java.util.List;
 
 import okhttp3.Call;
 
-public class LocationActivity extends AppCompatActivity implements LocationSource,
-        AMapLocationListener {
 
-    private static final String TAG = "LocationActivity";
+public class DiscoverFragment extends Fragment implements LocationSource,AMapLocationListener {
 
-    private MapView mMapView;
+    private static final String TAG = "DiscoverFragment";
+
+    private MapView mMapview;
     private AMap aMap;
-    private OnLocationChangedListener mListener;
+
+    private LocationSource.OnLocationChangedListener mListener;
     private AMapLocationClient mlocationClient;
     private AMapLocationClientOption mLocationOption;
 
-    private static final int STROKE_COLOR = Color.argb(180, 3, 145, 255);
-    private static final int FILL_COLOR = Color.argb(10, 0, 0, 180);
-    private boolean mFirstFix = false;
     private Marker mLocMarker;
     private Circle mCircle;
     private Polygon mPolygon;
 
-    private String headUrl;
+    private BitmapDescriptor mDes;
+
+    private static final int STROKE_COLOR = Color.argb(180, 3, 145, 255);
+    private static final int FILL_COLOR = Color.argb(10, 0, 0, 180);
+    private boolean mFirstFix = false;
+
     private String sTime = "",eTime = "";
-    private boolean isShowFan = false;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_location);
-        mMapView = (MapView) findViewById(R.id.bmapView);
-        mMapView.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_discover, container, false);
+        mMapview = (MapView) view.findViewById(R.id.frame_dis_bmapView);
+        mMapview.onCreate(savedInstanceState);
+        aMap = mMapview.getMap();
         init();
+        return view;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.location, menu);
-        return super.onCreateOptionsMenu(menu);
+    private void init() {
+        aMap = mMapview.getMap();
+        aMap.setOnMarkerClickListener(listener);
+        aMap.setLocationSource(this);
+        aMap.getUiSettings().setMyLocationButtonEnabled(true);
+        aMap.setMyLocationEnabled(true);
+        aMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
+        setUpMap();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-
-        if (id == R.id.action_history) {
-            showHistoryAlert();
-            return true;
-        }
-
-        if (id == R.id.action_fan) {
-            isShowFan = !isShowFan;
-            if(isShowFan){
-                double[] lats = getIntent().getDoubleArrayExtra("lats");
-                double[] lngs = getIntent().getDoubleArrayExtra("lngs");
-                final LatLng[] latlngs = new LatLng[lats.length];
-                for (int i = 0; i < lats.length;i++){
-                    latlngs[i] = new LatLng(lats[i],lngs[i]);
-                }
-                showPolygon(latlngs);
-                showPosition(latlngs[0],17);
-                Toast.makeText(this, "显示电子围栏", Toast.LENGTH_SHORT).show();
-            }else{
-                mPolygon.remove();
-                Toast.makeText(this, "电子围栏已被隐藏", Toast.LENGTH_SHORT).show();
-            }
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    private void setUpMap() {
+        MyLocationStyle myLocationStyle = new MyLocationStyle();
+        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.mipmap.head));// 设置小蓝点的图标
+        myLocationStyle.strokeColor(Color.GRAY);// 设置圆形的边框颜色
+        myLocationStyle.radiusFillColor(Color.argb(20, 0, 0, 180));// 设置圆形的填充颜色
+        myLocationStyle.strokeWidth(1.0f);// 设置圆形的边框粗细
+        aMap.setMyLocationStyle(myLocationStyle);
+        aMap.setLocationSource(this);// 设置定位监听
+        aMap.getUiSettings().setMyLocationButtonEnabled(false);// 设置默认定位按钮是否显示
+        aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
     }
+
+    private void getHistory(){
+        OkHttpUtils
+                .get()
+                .url(AppInfo.HttpUrl + "locusHistory")
+                .addParams("start", sTime)
+                .addParams("end", eTime)
+                .addParams("username", AppInfo.getString(getActivity(),"username"))
+                .addParams("password", AppInfo.getString(getActivity(),"password"))
+                .addParams("imei","0")
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        Log.d("locusHistory:","异常");
+                        Toast.makeText(getActivity(), "获取数据出现异常", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Log.d("response:",response);
+                        JSONObject jo;
+                        try {
+                            jo = new JSONObject(response);
+                            String msg = jo.getString("msg");
+                            Log.d("response:",msg);
+                            if(jo.getInt("msgcode") == 0){
+                                if(jo.isNull("data")){
+                                    Toast.makeText(getActivity(), "所查找时间内该设备并没有历史记录", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    JSONArray data = jo.getJSONArray("data");
+                                    List<LatLng> list = new ArrayList<LatLng>();
+                                    for (int i = 0; i < data.length(); i++){
+                                        String content = data.getJSONObject(i).getString("content");
+                                        String[] strArray = content.split(",");
+                                        double lat = Double.parseDouble(strArray[1]);
+                                        double lng = Double.parseDouble(strArray[0]);
+                                        LatLng latLng = new LatLng(lat,lng);
+                                        list.add(latLng);
+                                    }
+                                    showPolyline(list);
+//                                    showPosition(list.get(0),15);
+                                }
+                            }else{
+                                Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
 
     private void showHistoryAlert(){
         Calendar calendar = Calendar.getInstance();
@@ -125,9 +170,9 @@ public class LocationActivity extends AppCompatActivity implements LocationSourc
         sTime = year +"-"+(month+1)+"-"+day;
         eTime = year +"-"+(month+1)+"-"+day;
 
-        Toast.makeText(this, "请选择开始时间", Toast.LENGTH_SHORT).show();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final DatePicker data1 = new DatePicker(this);
+        Toast.makeText(getActivity(), "请选择开始时间", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final DatePicker data1 = new DatePicker(getActivity());
         data1.init(year, month, day, new DatePicker.OnDateChangedListener(){
 
             @Override
@@ -151,9 +196,9 @@ public class LocationActivity extends AppCompatActivity implements LocationSourc
         builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(LocationActivity.this, "请选择结束时间", Toast.LENGTH_SHORT).show();
-                AlertDialog.Builder builder = new AlertDialog.Builder(LocationActivity.this);
-                final DatePicker data2 = new DatePicker(LocationActivity.this);
+                Toast.makeText(getActivity(), "请选择结束时间", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                final DatePicker data2 = new DatePicker(getActivity());
                 data2.init(year, month, day, new DatePicker.OnDateChangedListener(){
 
                     @Override
@@ -177,7 +222,6 @@ public class LocationActivity extends AppCompatActivity implements LocationSourc
                 builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        getHistory();
                     }
                 });
                 builder.setNegativeButton("取消",null);
@@ -188,76 +232,7 @@ public class LocationActivity extends AppCompatActivity implements LocationSourc
         builder.create().show();
     }
 
-    private void getHistory(){
-        OkHttpUtils
-                .get()
-                .url(AppInfo.HttpUrl + "locusHistory")
-                .addParams("start", sTime)
-                .addParams("end", eTime)
-                .addParams("username", AppInfo.getString(this,"username"))
-                .addParams("password", AppInfo.getString(this,"password"))
-                .addParams("imei",getIntent().getStringExtra("imei"))
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        Log.d("locusHistory:","异常");
-                        Toast.makeText(LocationActivity.this, "获取数据出现异常", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        Log.d("response:",response);
-                        JSONObject jo;
-                        try {
-                            jo = new JSONObject(response);
-                            String msg = jo.getString("msg");
-                            Log.d("response:",msg);
-                            if(jo.getInt("msgcode") == 0){
-                                if(jo.isNull("data")){
-                                    Toast.makeText(LocationActivity.this, "所查找时间内该设备并没有历史记录", Toast.LENGTH_SHORT).show();
-                                }else{
-                                    JSONArray data = jo.getJSONArray("data");
-                                    List<LatLng> list = new ArrayList<LatLng>();
-                                    for (int i = 0; i < data.length(); i++){
-                                        String content = data.getJSONObject(i).getString("content");
-                                        String[] strArray = content.split(",");
-                                        double lat = Double.parseDouble(strArray[1]);
-                                        double lng = Double.parseDouble(strArray[0]);
-                                        LatLng latLng = new LatLng(lat,lng);
-                                        list.add(latLng);
-                                    }
-                                    showPolyline(list);
-                                    showPosition(list.get(0),15);
-                                }
-                            }else{
-                                Toast.makeText(LocationActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-    }
-
-    private void init() {
-
-        aMap = mMapView.getMap();
-        aMap.setOnMarkerClickListener(listener);
-
-        aMap.setLocationSource(this);
-        aMap.getUiSettings().setMyLocationButtonEnabled(true);
-        aMap.setMyLocationEnabled(true);
-        aMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
-
-        headUrl = getIntent().getStringExtra("head");
-        showMarker(new LatLng(getIntent().getDoubleArrayExtra("latlng")[1],getIntent().getDoubleArrayExtra("latlng")[0]));
-
-
-
-    }
-
-    private void showMarker(final LatLng latLng){
+    private void showMarker(final LatLng latLng,String headUrl){
         OkHttpUtils
                 .get()
                 .url(headUrl)
@@ -265,7 +240,7 @@ public class LocationActivity extends AppCompatActivity implements LocationSourc
                 .execute(new BitmapCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        Log.d(TAG, "onError");
+                        Log.d(TAG,"onError");
                     }
                     @Override
                     public void onResponse(Bitmap response, int id) {
@@ -280,7 +255,7 @@ public class LocationActivity extends AppCompatActivity implements LocationSourc
     }
 
     private void showPosition( LatLng latlng,int level){
-        aMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(latlng, level, 0, 0)), 1000,null);
+        aMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(latlng, level, 0, 0)), 600,null);
     }
 
     private void showPolyline(List<LatLng> latLngs){
@@ -290,12 +265,12 @@ public class LocationActivity extends AppCompatActivity implements LocationSourc
                 position(latLngs.get(0)).
                 title("起始点").
                 icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.map_start)))
-                );
+        );
         aMap.addMarker(new MarkerOptions().
                 position(latLngs.get(latLngs.size() - 1)).
                 title("终点").
-                        icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.map_end)))
-                );
+                icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.map_end)))
+        );
     }
 
     private void showPolygon(LatLng[] latlngs){
@@ -313,7 +288,6 @@ public class LocationActivity extends AppCompatActivity implements LocationSourc
 
         @Override
         public boolean onMarkerClick(Marker arg0) {
-//            Toast.makeText(LocationActivity.this, "onclick", Toast.LENGTH_SHORT).show();
             return false;
         }
     };
@@ -322,23 +296,15 @@ public class LocationActivity extends AppCompatActivity implements LocationSourc
     @Override
     public void onLocationChanged(AMapLocation amapLocation) {
         if (mListener != null && amapLocation != null) {
-            if (amapLocation != null
-                    && amapLocation.getErrorCode() == 0) {
-                LatLng location = new LatLng(amapLocation.getLatitude(), amapLocation.getLongitude());
-                if (!mFirstFix) {
+            if (amapLocation != null && amapLocation.getErrorCode() == 0) {
+                mListener.onLocationChanged(amapLocation);
+                if (!mFirstFix){
+                    showPosition(new LatLng(amapLocation.getLatitude(),amapLocation.getLongitude()),12);
                     mFirstFix = true;
-                    addCircle(location, amapLocation.getAccuracy());//添加定位精度圆
-                    addMarker(location);//添加定位图标
-                    showPosition(location,8);
-                } else {
-                    mCircle.setCenter(location);
-                    mCircle.setRadius(amapLocation.getAccuracy());
-                    mLocMarker.setPosition(location);
                 }
-
             } else {
                 String errText = "定位失败," + amapLocation.getErrorCode()+ ": " + amapLocation.getErrorInfo();
-                Log.e("AmapErr",errText);
+                Log.e("mapErr",errText);
             }
         }
     }
@@ -347,10 +313,10 @@ public class LocationActivity extends AppCompatActivity implements LocationSourc
     public void activate(OnLocationChangedListener listener) {
         mListener = listener;
         if (mlocationClient == null) {
-            mlocationClient = new AMapLocationClient(this);
+            mlocationClient = new AMapLocationClient(getActivity());
             mLocationOption = new AMapLocationClientOption();
             mlocationClient.setLocationListener(this);
-            mLocationOption.setLocationMode(AMapLocationMode.Hight_Accuracy);
+            mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
             mlocationClient.setLocationOption(mLocationOption);
             mlocationClient.startLocation();
         }
@@ -377,15 +343,9 @@ public class LocationActivity extends AppCompatActivity implements LocationSourc
     }
 
     private void addMarker(LatLng latlng) {
-        if (mLocMarker != null) {
-            return;
-        }
-        Bitmap bMap = BitmapFactory.decodeResource(this.getResources(),
-                R.mipmap.head);
-        BitmapDescriptor des = BitmapDescriptorFactory.fromBitmap(bMap);
-
+        Log.d(TAG, "addMarker: 民警用户");
         MarkerOptions options = new MarkerOptions();
-        options.icon(des);
+        options.icon(mDes);
         options.anchor(0.5f, 0.5f);
         options.position(latlng);
         mLocMarker = aMap.addMarker(options);
@@ -393,28 +353,30 @@ public class LocationActivity extends AppCompatActivity implements LocationSourc
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        mMapView.onResume();
+        mMapview.onResume();
+        mFirstFix = false;
+        Log.d(TAG, "onResume: ");
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
-        mMapView.onPause();
+        mMapview.onPause();
+        Log.d(TAG, "onPause: ");
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
-        mMapView.onDestroy();
+        mMapview.onDestroy();
+        Log.d(TAG, "onDestroy: ");
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mMapView.onSaveInstanceState(outState);
+        mMapview.onSaveInstanceState(outState);
     }
-
-
 }

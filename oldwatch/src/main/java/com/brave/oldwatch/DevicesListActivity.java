@@ -1,20 +1,15 @@
-package com.brave.oldwatch.frame;
+package com.brave.oldwatch;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.brave.oldwatch.DeviceActivity;
-import com.brave.oldwatch.R;
 import com.brave.oldwatch.adapter.DevicesListAdapter;
 import com.brave.oldwatch.utils.AppInfo;
 import com.brave.oldwatch.view.DevicesListItem;
@@ -30,28 +25,25 @@ import java.util.List;
 
 import okhttp3.Call;
 
-public class HomeFragment extends Fragment {
+public class DevicesListActivity extends AppCompatActivity {
 
-
-    private View mView;
     private ListView mListView;
-
     private List<String[]> mDevicesInfoList;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_home, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_devices_list);
         initView();
         initData();
-        return mView;
     }
 
     private void initData() {
         OkHttpUtils
                 .get()
                 .url(AppInfo.HttpUrl + "getMachine")
-                .addParams("username", AppInfo.getString(getActivity(),"username"))
-                .addParams("password", AppInfo.getString(getActivity(),"password"))
+                .addParams("username", AppInfo.getString(DevicesListActivity.this,"username"))
+                .addParams("password", AppInfo.getString(DevicesListActivity.this,"password"))
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -78,9 +70,8 @@ public class HomeFragment extends Fragment {
             JSONArray array = jo.getJSONArray("data");
             List<LinearLayout> list = new ArrayList<>();
             mDevicesInfoList = new ArrayList<>();
-            Context c = getActivity();
             for (int i = 0;i < array.length();i++){
-                DevicesListItem item = new DevicesListItem(c);
+                DevicesListItem item = new DevicesListItem(DevicesListActivity.this);
 
                 JSONObject data = array.getJSONObject(i);
                 String status = "在线";
@@ -97,7 +88,7 @@ public class HomeFragment extends Fragment {
             }
             mListView.setAdapter(new DevicesListAdapter(list));
         }else{
-            Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+            Toast.makeText(DevicesListActivity.this, msg, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -106,16 +97,15 @@ public class HomeFragment extends Fragment {
 
 
     private void initView() {
-        mListView = (ListView)mView.findViewById(R.id.frame_home_list);
+        mListView = (ListView)findViewById(R.id.frame_home_list);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent();
-                i.setClass(getActivity(), DeviceActivity.class);
+                i.setClass(DevicesListActivity.this, DeviceActivity.class);
                 i.putExtra("device_info",mDevicesInfoList.get(position));
-                getActivity().startActivity(i);
+                startActivity(i);
             }
         });
     }
-
 }

@@ -63,6 +63,7 @@ public class PreferenceUtil {
     }
 
     public static void setUserInfo(Context context,String key,String value){
+
         SharedPreferences sp = context.getSharedPreferences(NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putString(key, value);

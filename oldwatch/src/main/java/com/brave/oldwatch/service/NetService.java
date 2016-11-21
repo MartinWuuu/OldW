@@ -2,7 +2,6 @@ package com.brave.oldwatch.service;
 
 import android.app.Service;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -39,19 +38,25 @@ public class NetService extends Service {
     private static Date mLastTimeOfChat = new Date();
     private static Date mLastTimeOfNotice = new Date();
 
+    private Handler mHandler = new Handler();
+    private Runnable mRunnable = new Runnable() {
+        @Override
+        public void run() {
+            check();
+        }
+    };
+
     private Player player;
-    private String music;
 
     @Override
     public void onCreate() {
         super.onCreate();
         player = new Player(NetService.this, R.raw.sond);
-        checkChatList();
-        checkNoticeList();
-        Log.d(TAG, "onCreate");
+        Log.d(TAG, "启动后台监听");
+        mHandler.postDelayed(mRunnable,2000);
     }
 
-    private void checkNoticeList() {
+    private void check() {
         OkHttpUtils
                 .get()
                 .url(AppInfo.HttpUrl + "getAlert")
@@ -66,6 +71,7 @@ public class NetService extends Service {
 
                     @Override
                     public void onResponse(String response, int id) {
+//                        Log.d(TAG, "getAlert: "+response);
                         JSONObject jo;
                         try {
                             jo = new JSONObject(response);
@@ -85,7 +91,7 @@ public class NetService extends Service {
                                             Log.d(TAG, "onResponse: 系统消息:"+title+":"+time);
                                             mLastTimeOfNotice = date;
                                             final Intent intent = new Intent();
-                                            intent.setAction(MainActivity.ACTION_UPDATEUI);
+                                            intent.setAction(MainActivity.ACTION_UPDATE_UI);
                                             intent.putExtra("notice", true);
                                             intent.putExtra("chat", false);
                                             sendBroadcast(intent);
@@ -106,15 +112,7 @@ public class NetService extends Service {
                     }
                 });
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                checkNoticeList();
-            }
-        },2000);
-    }
 
-    private void checkChatList() {
         OkHttpUtils
                 .get()
                 .url(AppInfo.HttpUrl + "updateChat")
@@ -124,16 +122,20 @@ public class NetService extends Service {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        Log.d("getAlert:","异常");
+                        Log.d("updateChat:","异常");
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
+//                        Log.d(TAG, "updateChat: "+response);
                         JSONObject jo;
                         try {
                             jo = new JSONObject(response);
                             String msg = jo.getString("msg");
                             if(jo.getInt("msgcode") == 0){
+                                if (jo.isNull("data")){
+                                    return;
+                                }
                                 JSONArray data = jo.getJSONArray("data");
                                 for (int i = 0 ; i < data.length(); i++){
                                     final String name  = data.getJSONObject(i).getString("name");
@@ -145,7 +147,7 @@ public class NetService extends Service {
                                             Log.d(TAG, "onResponse: 聊天消息:"+name+":"+time);
                                             mLastTimeOfChat = date;
                                             final Intent intent = new Intent();
-                                            intent.setAction(MainActivity.ACTION_UPDATEUI);
+                                            intent.setAction(MainActivity.ACTION_UPDATE_UI);
                                             intent.putExtra("notice", false);
                                             intent.putExtra("chat", true);
                                             sendBroadcast(intent);
@@ -164,12 +166,8 @@ public class NetService extends Service {
                         }
                     }
                 });
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                checkChatList();
-            }
-        },2000);
+        mHandler.postDelayed(mRunnable,2000);
+
     }
 
 

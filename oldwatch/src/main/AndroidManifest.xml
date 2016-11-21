@@ -25,10 +25,9 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-
-    <uses-permission  android:name="android.permission.MOUNT_FORMAT_FILESYSTEMS"/>
-    <uses-permission  android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission  android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.MOUNT_FORMAT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -51,28 +50,36 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".MainActivity"></activity>
-
-        <activity android:name=".ChatActivity" />
-
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".DeviceActivity"
             android:parentActivityName=".MainActivity" />
-
         <activity
             android:name=".LocationActivity"
-            android:label="位置信息"
-             />
-
+            android:label="位置信息" />
         <activity
             android:name=".NoticeActivity"
             android:label="系统通知"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
 
-        <service android:name="com.amap.api.location.APSService"></service>
-        <service android:name=".service.NetService"></service>
+        <service android:name="com.amap.api.location.APSService" />
+        <service android:name=".service.NetService" />
 
+        <activity
+            android:name=".ChatActivity"
+            android:parentActivityName=".ChatListActivity" />
+        <activity
+            android:name=".ChatListActivity"
+            android:label="消息列表"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".MoreActivity"
+            android:label="更多"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".DevicesListActivity"
+            android:label="设备列表"
+            android:parentActivityName=".MoreActivity"></activity>
     </application>
 
 </manifest>

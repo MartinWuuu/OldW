@@ -47,27 +47,6 @@ public class MoreFragment extends Fragment implements View.OnClickListener {
 
         mPasswordBtn.setOnClickListener(this);
         mLogoutBtn.setOnClickListener(this);
-
-//        OkHttpUtils
-//                .get()
-//                .url(AppInfo.HttpUrl + "getInfo_xl")
-//                .build()
-//                .execute(new BitmapCallback() {
-//                    @Override
-//                    public void onError(Call call, Exception e, int id) {
-//                        Log.d(TAG, "onError");
-//                    }
-//                    @Override
-//                    public void onResponse(Bitmap response, int id) {
-//                        aMap.addMarker(new MarkerOptions().
-//                                position(latLng).
-//                                title("北京").
-//                                icon(BitmapDescriptorFactory.fromBitmap(response)).
-//                                snippet("DefaultMarker"));
-//
-//                    }
-//                });
-        
     }
 
     @Override

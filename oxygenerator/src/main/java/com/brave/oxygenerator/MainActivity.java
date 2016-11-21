@@ -3,8 +3,10 @@ package com.brave.oxygenerator;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -26,12 +28,14 @@ import com.brave.oxygenerator.frame.DataFrame;
 import com.brave.oxygenerator.frame.HomeFrame;
 import com.brave.oxygenerator.frame.MessageFrame;
 import com.brave.oxygenerator.frame.SettingFrame;
+import com.brave.oxygenerator.util.AppInfo;
 import com.brave.oxygenerator.util.PreferenceUtil;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.BitmapCallback;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONException;
@@ -130,10 +134,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             final String email = jo.getString("email");
                             final String userLogoKey = jo.getString("userLogoKey");
 
+                            if (male.equals("0")){
+                                PreferenceUtil.setUserInfo(MainActivity.this,"male","男");
+                            }else{
+                                PreferenceUtil.setUserInfo(MainActivity.this,"male","女");
+                            }
+
                             PreferenceUtil.setUserInfo(MainActivity.this,"userId",userId);
                             PreferenceUtil.setUserInfo(MainActivity.this,"name",name);
                             PreferenceUtil.setUserInfo(MainActivity.this,"age",age);
-                            PreferenceUtil.setUserInfo(MainActivity.this,"male",male);
                             PreferenceUtil.setUserInfo(MainActivity.this,"profession",profession);
                             PreferenceUtil.setUserInfo(MainActivity.this,"mphone",mphone);
                             PreferenceUtil.setUserInfo(MainActivity.this,"email",email);
@@ -148,8 +157,58 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
                     }
                 });
+
+        String img = PreferenceUtil.getUserInfo(this,"img");
+        if (!(img.equals(""))){
+            setUserLogo(img);
+        }
+
     }
 
+    private void operDevices(boolean oper,final TextView tips){
+
+        OkHttpUtils
+                .post()
+                .url(AppInfo.URL+"airsep/operDevice.action")
+                .addParams("oper", oper+"")
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        Toast.makeText(MainActivity.this, "获取用户资料失败：请检查网络", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Log.d("operDevices",response);
+                        try {
+                            JSONObject jo = new JSONObject(response);
+//                            Toast.makeText(MainActivity.this, jo.getString("errorMsg"), Toast.LENGTH_SHORT).show();
+                            tips.setText(jo.getString("errorMsg"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    private void setUserLogo(final String path){
+        OkHttpUtils
+                .get()
+                .url(AppInfo.URL + AppInfo.IMG + path)
+                .build()
+                .execute(new BitmapCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onResponse(Bitmap response, int id) {
+                        mUserHeadView.setImageBitmap(response);
+                    }
+                });
+    }
 
 
     @Override
@@ -192,26 +251,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
-
-
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
         int id = item.getItemId();
         FragmentManager fm = getFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
@@ -266,12 +316,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public boolean onTouch(View v, MotionEvent event) {
                 if(isOpenSwitch){
                     img.setImageResource(R.mipmap.sw_on);
-                    tips.setText("开启");
+                    tips.setText("开启中");
                 }else{
                     img.setImageResource(R.mipmap.sw_off);
-                    tips.setText("关闭");
+                    tips.setText("关闭中");
                 }
+                operDevices(isOpenSwitch,tips);
                 isOpenSwitch = !isOpenSwitch;
+                img.setEnabled(false);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        img.setEnabled(true);
+                    }
+                },500);
                 return false;
             }
         });
@@ -280,15 +338,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         builder.create().show();
     }
 
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
     public Action getIndexApiAction() {
         Thing object = new Thing.Builder()
-                .setName("Main Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
+                .setName("Main Page")
                 .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
                 .build();
         return new Action.Builder(Action.TYPE_VIEW)
@@ -300,9 +352,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onStart() {
         super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.connect();
         AppIndex.AppIndexApi.start(client, getIndexApiAction());
     }
@@ -310,9 +359,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onStop() {
         super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
     }

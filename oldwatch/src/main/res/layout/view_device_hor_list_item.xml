@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+
+
+    <ImageView
+        android:id="@+id/view_devices_list_item_time_logo"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:src="@mipmap/head"
+       />
+
+    <TextView
+        android:id="@+id/view_devices_list_item_time_name"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:text="刘警官"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fff"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:background="#7cce39"
+        android:layout_alignBottom="@+id/view_devices_list_item_time_logo"
+        />
+
+</RelativeLayout >

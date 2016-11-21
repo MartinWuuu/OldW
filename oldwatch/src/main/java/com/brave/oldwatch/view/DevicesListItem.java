@@ -21,22 +21,16 @@ import okhttp3.Request;
 
 public class DevicesListItem extends LinearLayout {
 
-    private View mView;
-
     private ImageView mHeadView;
     private TextView mNameView,mStatusView,mTimeView;
 
     public DevicesListItem(Context context){
         super(context);
-        mView = LayoutInflater.from(context).inflate(R.layout.view_devices_list_item,this);
-        initView();
-    }
-
-    private void initView() {
-        mHeadView = (ImageView)mView.findViewById(R.id.view_devices_list_item_head);
-        mNameView = (TextView)mView.findViewById(R.id.view_devices_list_item_name);
-        mStatusView = (TextView)mView.findViewById(R.id.view_devices_list_item_status);
-        mTimeView = (TextView)mView.findViewById(R.id.view_devices_list_item_time);
+        View view = LayoutInflater.from(context).inflate(R.layout.view_devices_list_item,this);
+        mHeadView = (ImageView)view.findViewById(R.id.view_devices_list_item_head);
+        mNameView = (TextView)view.findViewById(R.id.view_devices_list_item_name);
+        mStatusView = (TextView)view.findViewById(R.id.view_devices_list_item_status);
+        mTimeView = (TextView)view.findViewById(R.id.view_devices_list_item_time);
     }
 
     public void setParams(String[] params){
@@ -49,9 +43,7 @@ public class DevicesListItem extends LinearLayout {
                 .build()
                 .execute(new BitmapCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int id) {
-
-                    }
+                    public void onError(Call call, Exception e, int id) {}
 
                     @Override
                     public void onResponse(Bitmap response, int id) {

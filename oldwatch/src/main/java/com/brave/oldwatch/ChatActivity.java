@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,7 +21,6 @@ import com.brave.oldwatch.utils.AppInfo;
 import com.brave.oldwatch.utils.Player;
 import com.brave.oldwatch.utils.Recorder;
 import com.brave.oldwatch.view.ChatLeftItem;
-import com.brave.oldwatch.view.ChatListItem;
 import com.brave.oldwatch.view.ChatRecordingBackbround;
 import com.brave.oldwatch.view.ChatRightItem;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -72,7 +70,7 @@ public class ChatActivity extends AppCompatActivity {
         initView();
 
         IntentFilter filter = new IntentFilter();
-        filter.addAction(MainActivity.ACTION_UPDATEUI);
+        filter.addAction(MainActivity.ACTION_UPDATE_UI);
         broadcastReceiver = new UpdateUIBroadcastReceiver();
         registerReceiver(broadcastReceiver, filter);
     }

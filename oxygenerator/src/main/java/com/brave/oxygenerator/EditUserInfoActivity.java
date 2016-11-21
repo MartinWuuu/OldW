@@ -61,6 +61,7 @@ public class EditUserInfoActivity extends AppCompatActivity {
                 .post()
                 .url("http://airsep.routeyo.net/airsep/lutsoft/sso/updateUser.action")
                 .addParams(mParams,info)
+                .addParams("userLogoKey", PreferenceUtil.getUserInfo(EditUserInfoActivity.this,"img"))
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -94,7 +95,9 @@ public class EditUserInfoActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        if (item.getItemId() == R.id.action_confirm){
+            update();
+        }
         return super.onOptionsItemSelected(item);
     }
 }

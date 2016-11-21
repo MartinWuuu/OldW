@@ -75,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
+                        e.printStackTrace();
                         Toast.makeText(LoginActivity.this, "获取验证码失败：请检查网络", Toast.LENGTH_LONG).show();
                         mTipsView.setText( "登录失败：请检查网络");
                         mLoginBtn.setEnabled(true);
