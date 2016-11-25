@@ -79,7 +79,11 @@
         <activity
             android:name=".DevicesListActivity"
             android:label="设备列表"
-            android:parentActivityName=".MoreActivity"></activity>
+            android:parentActivityName=".MoreActivity" />
+        <activity
+            android:name=".BHActivity"
+            android:label="生命体征记录"
+            android:parentActivityName=".DevicesListActivity"></activity>
     </application>
 
 </manifest>

@@ -251,7 +251,9 @@ public class LocationActivity extends AppCompatActivity implements LocationSourc
         aMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
 
         headUrl = getIntent().getStringExtra("head");
-        showMarker(new LatLng(getIntent().getDoubleArrayExtra("latlng")[1],getIntent().getDoubleArrayExtra("latlng")[0]));
+
+        showMarker(new LatLng(getIntent().getDoubleArrayExtra("latlng")[0],getIntent().getDoubleArrayExtra("latlng")[1
+                ]));
 
 
 

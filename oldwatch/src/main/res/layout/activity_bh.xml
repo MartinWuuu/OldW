@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_bh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.brave.oldwatch.BHActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/frame_data_guide_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#3e90f5"
+            android:padding="16dp"
+            android:alpha="0.7">
+
+            <TextView
+                android:id="@+id/frame_data_btn_day"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="血压"
+                android:textColor="#fff"
+                android:gravity="center"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/frame_data_btn_month"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="心率"
+                android:textColor="#fff"
+                android:gravity="center"
+                android:textSize="16sp"/>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignBottom="@+id/frame_data_guide_bar"
+            android:weightSum="2">
+            <View
+                android:id="@+id/frame_data_pointer"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="4dp"
+                android:background="#fff"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/frame_data_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.5"
+        >
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/frame_data_spread_pie_chart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"/>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

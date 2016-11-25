@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -72,6 +73,12 @@ public class DeviceActivity extends AppCompatActivity implements View.OnTouchLis
                 });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Toast.makeText(this, item.getItemId()+"", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
     private void parseJson(String response) throws JSONException{
         JSONObject jo = new JSONObject(response);
         int msgCode = jo.getInt("msgcode");
@@ -89,14 +96,15 @@ public class DeviceActivity extends AppCompatActivity implements View.OnTouchLis
                 lats = null;
                 lngs = null;
             }else{
-                String list = data.getString("dzwl");
-
-                JSONArray histoy = new JSONArray(list);
-                lats = new double[histoy.length()];
-                lngs = new double[histoy.length()];
-                for (int i = 0; i < histoy.length();i++){
-                    lats[i] = histoy.getJSONObject(i).getDouble("lat");
-                    lngs[i] = histoy.getJSONObject(i).getDouble("lng");
+                if (data.isNull("dzwl") == false && data.getString("dzwl").equals("") == false){
+                    String list = data.getString("dzwl");
+                    JSONArray histoy = new JSONArray(list);
+                    lats = new double[histoy.length()];
+                    lngs = new double[histoy.length()];
+                    for (int i = 0; i < histoy.length();i++){
+                        lats[i] = histoy.getJSONObject(i).getDouble("lat");
+                        lngs[i] = histoy.getJSONObject(i).getDouble("lng");
+                    }
                 }
             }
             isGetInfo = true;
@@ -157,6 +165,14 @@ public class DeviceActivity extends AppCompatActivity implements View.OnTouchLis
         builder.setTitle(s[0]);
         builder.setMessage(s[1] + s[2] + "\n\n数据更新时间：" + s[3]);
         builder.setPositiveButton("确认",null);
+        builder.setNegativeButton("查询历史纪录", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent i = new Intent();
+                i.setClass(DeviceActivity.this,BHActivity.class);
+                startActivity(i);
+            }
+        });
         builder.create().show();
     }
 

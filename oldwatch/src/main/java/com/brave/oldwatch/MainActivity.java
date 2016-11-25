@@ -161,9 +161,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 name.setText(data.getString("name"));
                 mDevicesInfoList.add(new String[]{data.getString("name"),data.getString("imei"),data.getString("phone"),AppInfo.HttpImgUrl+data.getString("image")});
                 setLogo(icon,AppInfo.HttpImgUrl+data.getString("image"));
-                final LatLng ll = new LatLng(data.isNull("longitude")?0:data.getDouble("longitude"),data.isNull("latitude")?0:data.getDouble("latitude"));
+                final LatLng ll = new LatLng(data.isNull("latitude")?0:data.getDouble("latitude"),data.isNull("longitude")?0:data.getDouble("longitude"));
                 if (ll.latitude != 0 && ll.longitude != 0){
-                    showMarker(ll,AppInfo.HttpImgUrl+data.getString("image"),new String[]{data.getString("name"),data.getString("name"),data.getString("name"),data.getString("updatetime")});
+                    showMarker(ll,AppInfo.HttpImgUrl+data.getString("image"),new String[]{data.getString("name"),data.getString("heart_rate"),data.getString("blood_pressure"),data.getString("updatetime")});
                     mLatLngs[i] = ll;
                 }else{
                     mLatLngs[i] = mLacation;
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 });
                 header_ll.addView(coupon_home_ad_item);
-                if (data.isNull("dzwl") == false){
+                if (data.isNull("dzwl") == false && data.getString("dzwl").equals("") == false){
                     String list = data.getString("dzwl");
                     JSONArray dzwl = new JSONArray(list);
                     LatLng[] latlngs = new LatLng[dzwl.length()];
@@ -312,8 +312,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         Polygon p = aMap.addPolygon(options.strokeWidth(5)
                 .strokeColor(Color.argb(30, 1, 1,1))
-                .fillColor(Color.argb(30, 1, 1, 1)));
-        mPolygon.add(p);
+                .fillColor(Color.argb(30, 1, 1, 1)));mPolygon.add(p);
     }
 
     private void showPolygon(boolean b){
@@ -482,8 +481,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        for (int i = 0; i < mMarker.size();i++){
-            if (marker.equals(mMarker.get(i))){
+
+        for (int i = 0; i < mDevicesInfoList.size();i++){
+            Log.d(TAG, "onInfoWindowClick: "+mDevicesInfoList.get(i)[0]+","+marker.getTitle());
+            if (marker.getTitle().equals(mDevicesInfoList.get(i)[0])){
                 Intent ii = new Intent();
                 ii.setClass(MainActivity.this, DeviceActivity.class);
                 ii.putExtra("device_info",mDevicesInfoList.get(i));
